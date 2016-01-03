@@ -31,7 +31,7 @@
     <a href="{{ url('/login') }}" class="item">Login</a>
     <a href="{{ url('/register') }}" class="item">Register</a>
     @else
-    <a href="#" class="item">
+    <a href="/admin" class="item">
         {{ Auth::user()->name }}
     </a>
     <a href="{{ url('/logout') }}" class="item"><i class="fa fa-btn fa-sign-out"></i>Logout</a>

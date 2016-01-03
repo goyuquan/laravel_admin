@@ -210,12 +210,12 @@ $(document).ready(function() {
 
 		// ask verification
 		$.SmartMessageBox({
-			title : "<i class='fa fa-sign-out txt-color-orangeDark'></i> Logout <span class='txt-color-orangeDark'><strong>" + $('#show-shortcut').text() + "</strong></span> ?",
-			content : $.logoutMSG || "You can improve your security further after logging out by closing this opened browser",
-			buttons : '[No][Yes]'
+			title : "<i class='fa fa-sign-out txt-color-orangeDark'></i> 退出 <span class='txt-color-orangeDark'><strong>" + $('#show-shortcut').text() + "</strong></span> ?",
+			content : $.logoutMSG || "感谢使用",
+			buttons : '[取消][退出]'
 
 		}, function(ButtonPressed) {
-			if (ButtonPressed == "Yes") {
+			if (ButtonPressed == "退出") {
 				$.root_.addClass('animated fadeOutUp');
 				setTimeout(logout, 1000)
 			}
