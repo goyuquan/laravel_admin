@@ -16,6 +16,7 @@ class CreateArticlesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->index();
             $table->string('title');
+            $table->string('category');
             $table->string('thumbnail',20);
             $table->text('content');
             $table->timestamps();

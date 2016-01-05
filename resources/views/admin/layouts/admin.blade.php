@@ -37,6 +37,12 @@
 		<link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon">
 		<link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
 
+		<style media="screen">
+			#show-shortcut {
+				margin-left: 0.5em;
+			}
+		</style>
+
 		@yield('style')
 
 	</head>

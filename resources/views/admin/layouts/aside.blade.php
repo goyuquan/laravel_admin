@@ -7,7 +7,7 @@
         <span> <!-- User image size is adjusted inside CSS, it should stay as it -->
 
             <a href="javascript:void(0);" id="show-shortcut">
-                <img src="img/avatars/sunny.png" alt="me" class="online" />
+                <i class="fa fa-user" style="font-size:2em;position: relative; top: 0.1em;margin-right:0.5em;">    </i>
                 <span>
                     {{ Auth::user()->name }}
                 </span>

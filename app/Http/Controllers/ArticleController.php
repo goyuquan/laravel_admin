@@ -77,6 +77,7 @@ class ArticleController extends Controller
     {
         $messages = [
             'title.required' => '标题不能为空',
+            'category.required' => '选择分类',
             'title.unique' => '标题不能重复',
             'title.max' => '标题不能大于:max位',
             'title.min' => '标题不能小于:min位',
@@ -85,15 +86,17 @@ class ArticleController extends Controller
         ];
         $this->validate($request, [
             'title' => 'required|min:5|max:255',
-            'content' => 'required',
+            'category' => 'required',
             'photo' => 'max:1024',
+            'content' => 'required',
             'publish_at' => 'required',
         ],$messages);
 
         $request->user()->articles()->create([
             'title' => $request->title,
-            'content' => $request->content,
             'thumbnail' => $request->photo,
+            'category' => $request->category,
+            'content' => $request->content,
             'published_at' => $request->publish_at,
         ]);
 

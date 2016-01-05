@@ -71,7 +71,6 @@
         </p>
     </div>
 
-
     <!-- widget grid -->
     <section id="widget-grid">
 
@@ -106,7 +105,7 @@
 
                         <!-- widget content -->
                         <div class="widget-body no-padding">
-                            <form class="smart-form" novalidate="novalidate" method="POST" action="/article/store" enctype="multipart/form-data" >
+                            <form id="create_form" class="smart-form" novalidate="novalidate" method="POST" action="/article/store" enctype="multipart/form-data" >
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="photo">
 
@@ -118,27 +117,16 @@
                                                 <label class="input">
                                                     <i class="icon-prepend fa fa-user"></i>
                                                     <input type="text" name="title" value="{{ old('title') }}" placeholder="文章标题">
-                                                    @if ($errors->has('title'))
-                                                    <strong>{{ $errors->first('title') }}</strong>
-                                                    @endif
                                                 </label>
+                                                @if ($errors->has('title'))
+                                                    <em for="title" class="invalid">{{ $errors->first('title') }}</em>
+                                                @endif
                                             </section>
                                             <!-- 标题结束 -->
 
                                             <div class="row">
-                                                <section class="col col-3">
-                                                    <label class="input"> <i class="icon-append fa fa-calendar"></i>
-                                                        <input type="text" name="publish_at" placeholder="选择发布时间" class="datepicker" value="{{ old('publish_at') }}" data-dateformat="dd/mm/yy">
-                                                        @if ($errors->has('publish_at'))
-                                                        <strong>{{ $errors->first('publish_at') }}</strong>
-                                                        @endif
-                                                    </label>
-                                                </section>
-                                                <div class="col col-1">
-                                                    <a data-toggle="modal" href="#myModal" id="upload_bt0" class="btn btn-warning btn-sm"><i class="fa fa-upload"></i>     缩略图</a>
-                                                </div>
-                                                <section class="col col-1">
-                                                    <div id="type_select" class="dropdown">
+                                                <section class="col col-2">
+                                                    <div id="type_select" class="dropdown pull-right">
                                                         <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary btn-sm" data-target="#" href="javascript:void(0);">
                                                             <i class="fa fa-gear"></i>      类别
                                                             <span class="caret"></span>
@@ -148,10 +136,10 @@
                                                                 <a href="javascript:void(0);">类别1</a>
                                                             </li>
                                                             <li>
-                                                                <a href="javascript:void(0);">类别1</a>
+                                                                <a href="javascript:void(0);">类别2</a>
                                                             </li>
                                                             <li class="dropdown-submenu">
-                                                                <a tabindex="-1" href="javascript:void(0);">有子类别</a>
+                                                                <a tabindex="-1" href="javascript:void(0);" class="parent-item">有子类别</a>
                                                                 <ul class="dropdown-menu">
                                                                     <li>
                                                                         <a tabindex="-1" href="javascript:void(0);">Second level</a>
@@ -179,13 +167,27 @@
                                                 </section>
                                                 <section class="col col-2">
                                                     <label class="input input-sm">
-														<input type="text" name="category" class="input-sm" placeholder="输入类别">
-													</label>
+                                                        <input type="text" name="category" class="input-sm" placeholder="输入类别">
+                                                    </label>
+                                                    @if ($errors->has('category'))
+                                                    <em for="category" class="invalid">{{ $errors->first('category') }}</em>
+                                                    @endif
                                                 </section>
+                                                <section class="col col-3">
+                                                    <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                                                        <input type="text" name="publish_at" placeholder="选择发布时间" class="datepicker" value="{{ old('publish_at') }}" data-dateformat="dd/mm/yy">
+                                                    </label>
+                                                    @if ($errors->has('publish_at'))
+                                                        <em>{{ $errors->first('publish_at') }}</em>
+                                                    @endif
+                                                </section>
+                                                <div class="col col-1">
+                                                    <a data-toggle="modal" href="#myModal" id="upload_bt0" class="btn btn-warning btn-sm"><i class="fa fa-upload"></i>     缩略图</a>
+                                                </div>
                                             </div>
 
 
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label>标签 (多选)</label>
                                                 <select multiple style="width:100%" class="select2">
                                                     <optgroup label="Alaskan/Hawaiian Time Zone">
@@ -252,7 +254,7 @@
                                                 <div class="note">
                                                     <strong>提示:</strong> 按住<strong>Ctrl</strong>键多选。
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </fieldset>
 
                                 </div>
@@ -264,52 +266,82 @@
                         </div>
                         <!-- end widget -->
 
+                        <div class="jarviswidget jarviswidget-color-blue" id="summernote" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-collapsed="false" data-widget-sortable="false">
+            				<!-- widget options:
+            				usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
+            				data-widget-colorbutton="false"
+            				data-widget-editbutton="false"
+            				data-widget-togglebutton="false"
+            				data-widget-deletebutton="false"
+            				data-widget-fullscreenbutton="false"
+            				data-widget-custombutton="false"
+            				data-widget-collapsed="false"
+            				data-widget-sortable="false"
 
-                        <div class="jarviswidget jarviswidget-color-blue" id="wid-id-2" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="true">
-                            <!-- widget options:
-                            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+            				-->
+            				<header>
+            					<span class="widget-icon"> <i class="fa fa-pencil"></i> </span>
+            					<h2>网页内容编辑器</h2>
 
-                            data-widget-colorbutton="false"
-                            data-widget-editbutton="false"
-                            data-widget-togglebutton="false"
-                            data-widget-deletebutton="false"
-                            data-widget-fullscreenbutton="false"
-                            data-widget-custombutton="false"
-                            data-widget-collapsed="true"
-                            data-widget-sortable="false"
+            				</header>
 
-                            -->
+            				<!-- widget div-->
+            				<div>
+
+            					<!-- widget edit box -->
+            					<div class="jarviswidget-editbox">
+            						<!-- This area used as dropdown edit box -->
+
+            					</div>
+            					<!-- end widget edit box -->
+
+            					<!-- widget content -->
+            					<div class="widget-body no-padding">
+
+            						<div class="web_area">
+
+            						</div>
+
+            						<div class="widget-footer smart-form">
+
+                                    <div class="btn-group">
+                                        <button id="summernote_save" class="btn btn-sm btn-success" type="button">
+                                            <i class="fa fa-check"></i> 保存
+                                        </button>
+                                    </div>
+            						<div class="btn-group">
+            							<button id="summernote_clear" class="btn btn-sm btn-primary" type="button">
+            								<i class="fa fa-times"></i> 清空
+            							</button>
+            						</div>
+
+            						</div>
+
+            					</div>
+            					<!-- end widget content -->
+
+            				</div>
+            				<!-- end widget div -->
+
+            			</div>
+
+                        <!-- <div class="jarviswidget jarviswidget-color-blue" id="markdown" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="true">
                             <header>
                                 <span class="widget-icon"> <i class="fa fa-pencil"></i> </span>
-                                <h2>内容编辑器</h2>
+                                <h2>文本内容编辑器</h2>
                             </header>
-
-                            <!-- widget div-->
                             <div>
-
-                                <!-- widget edit box -->
                                 <div class="jarviswidget-editbox">
-                                    <!-- This area used as dropdown edit box -->
                                 </div>
-                                <!-- end widget edit box -->
-
-                                <!-- widget content -->
                                 <div class="widget-body no-padding">
-
-                                    <textarea id="mymarkdown" class="custom-scroll" style="max-height:180px;"> {{ old('content') }} </textarea>
+                                    <textarea id="text_area" name="content" class="custom-scroll" style="max-height:180px;"> {{ old('content') }} </textarea>
                                     @if ($errors->has('content'))
                                     <strong>{{ $errors->first('content') }}</strong>
                                     @endif
-
                                 </div>
-                                <!-- end widget content -->
-
                             </div>
-                            <!-- end widget div -->
-
-                        </div>
-                        <!-- end widget -->
+                        </div> -->
 
 
                     </article>
@@ -339,16 +371,101 @@
 
 @section('script')
 <script src="/js/upload.js"></script>
+<script src="/js/plugin/summernote/summernote.js"></script>
 <script src="/js/plugin/markdown/markdown.min.js"></script>
 <script src="/js/plugin/markdown/to-markdown.min.js"></script>
 <script src="/js/plugin/markdown/bootstrap-markdown.min.js"></script>
+<script src="/js/plugin/jquery-form/jquery-form.min.js"></script>
 
 <script>
 $(function(){
-    $("#mymarkdown").markdown({
+    $("#text_area").markdown({
         autofocus:false,
-        savable:true
-    })
+        savable:false
+    });
+
+    $('.web_area').summernote({
+		height : 280,
+		focus : false,
+		tabsize : 2
+	});
+
+    $('#summernote #summernote_save').addClass("disabled");
+    $('#summernote #summernote_clear').addClass("disabled");
+
+    $(".note-editable").keyup(function(){
+        if ($(this).html() != "") {
+            $("#summernote").removeClass("jarviswidget-color-greenDark jarviswidget-color-redLight").addClass("jarviswidget-color-blue");
+            $('#summernote #summernote_save').removeClass("disabled");
+            $('#summernote #summernote_clear').removeClass("disabled");
+        } else {
+            $('#summernote #summernote_save').addClass("disabled");
+            $('#summernote #summernote_clear').addClass("disabled");
+        }
+    });
+
+    $('#summernote #summernote_save').click(function(){
+        $("#summernote").removeClass("jarviswidget-color-blue").addClass("jarviswidget-color-greenDark");
+        $("#summernote textarea").val($(".note-editable").html());
+        $('#summernote #summernote_save').addClass("disabled");
+        $('#summernote #summernote_clear').addClass("disabled");
+    });
+
+    $('#summernote #summernote_clear').click(function(){
+        $("#summernote textarea").empty();
+        $(".note-editable").empty();
+        $('#summernote #summernote_save').addClass("disabled");
+        $(this).addClass("disabled");
+    });
+
+    $("#type_select ul a:not('.parent-item')").click(function(){
+        $("input[name='category']").val($(this).text());
+        $("#dLabel").html("<i class='fa fa-gear'></i>   "+$(this).text()+"   <span class='caret'></span>");
+    });
+
+
+
+    var $creat_form = $("#create_form").validate({
+		// Rules for form validation
+		rules : {
+			title : {
+				required : true,
+				minlength : 5,
+				maxlength : 200
+			},
+			category : {
+				required : true,
+			}
+		},
+
+		// Messages for form validation
+		messages : {
+			title : {
+				required : '请输入标题',
+                minlength : '不能小于5位',
+                maxlength : '不能大于200位',
+			},
+			category : {
+				required : '请选择分类'
+			}
+		},
+
+		// Do not change code below
+		errorPlacement : function(error, element) {
+			error.insertAfter(element.parent());
+		}
+	});
+
+    $("#create_form").submit(function(){
+
+        if ($("#summernote textarea").val() == "") {
+            $("#summernote").removeClass("jarviswidget-color-blue").addClass("jarviswidget-color-redLight");
+            $("#summernote h2").text("内容不能为空");
+            return false;
+        }
+    });
+
+
 });
 </script>
 
