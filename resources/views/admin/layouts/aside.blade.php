@@ -38,10 +38,10 @@
         <a href="#"><i class="fa fa-lg fa-fw fa-pencil-square-o"></i> <span class="menu-item-parent">内容管理</span></a>
         <ul>
             <li>
-                <a href="/admin/article/create">新建文章</a>
+                <a href="/admin/articles/">文章列表</a>
             </li>
             <li>
-                <a href="form-templates.html">Smart Form Layouts</a>
+                <a href="/admin/article/create">新建文章</a>
             </li>
             <li>
                 <a href="validation.html">Smart Form Validation</a>

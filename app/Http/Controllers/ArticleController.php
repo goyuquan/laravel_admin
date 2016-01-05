@@ -43,6 +43,14 @@ class ArticleController extends Controller
     }
 
 
+    public function article_list($id = 1)
+    {
+        return view('admin.articles.list', [
+            'articles' => $this->articles->for_guest($id)
+        ]);
+    }
+
+
     public function user_index(Request $request)
     {
         return view('articles.index', [
