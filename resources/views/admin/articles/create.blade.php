@@ -54,19 +54,12 @@
 
 
     <div class="row">
-        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <h1 class="page-title txt-color-blueDark">
 
                 <!-- PAGE HEADER -->
                 <i class="fa-fw fa fa-pencil-square-o"></i> 内容管理 <span>> 新建文章 </span>
             </h1>
-        </div>
-
-        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-            <!-- Button trigger modal -->
-            <a data-toggle="modal" href="#myModal" class="btn btn-success btn-lg pull-right header-btn hidden-mobile">
-                <i class="fa fa-circle-arrow-up fa-lg"></i> 弹出模态框层
-            </a>
         </div>
     </div>
 
@@ -142,7 +135,7 @@
                                                     </label>
                                                 </section>
                                                 <div class="col col-1">
-                                                    <a href="javascript:void(0);"  id="upload_bt" class="btn btn-warning btn-sm"><i class="fa fa-upload"></i>     缩略图</a>
+                                                    <a data-toggle="modal" href="#myModal" id="upload_bt0" class="btn btn-warning btn-sm"><i class="fa fa-upload"></i>     缩略图</a>
                                                 </div>
                                                 <section class="col col-1">
                                                     <div id="type_select" class="dropdown">

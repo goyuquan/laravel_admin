@@ -20,7 +20,7 @@ $(function(){
                     xhr.upload.addEventListener("progress", function(evt) {
                         // show progress like example
                         var loaded = (evt.loaded / total).toFixed(2)*100; // percent
-                        $('#progress').text('Uploading... ' + loaded + '%' );
+                        $('#progress').width(loaded + '%');
                     }, false);
                     return xhr;
                 },
@@ -31,6 +31,10 @@ $(function(){
                 data: fd,
                 success: function(data) {
                     $("input[name='photo']").val(data);
+                    $('#img_upload').addClass('disabled');
+                    $('#file').closest('.input-file').addClass('state-disabled');
+                    $('#progress').removeClass('bg-color-primary').addClass('progress-bar-success');
+                    $('#progress').parent().removeClass('active');
                     alert('上传成功');
                 }
             });
