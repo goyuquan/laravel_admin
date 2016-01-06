@@ -67,12 +67,6 @@ class ArticleController extends Controller
     }
 
 
-    public function edit($id)
-    {
-        $article = Article::find($id);
-
-        return view('articles.edit',['article'=>$article]);
-    }
 
 
     public function create(Request $request)
@@ -97,20 +91,28 @@ class ArticleController extends Controller
             'category' => 'required',
             'photo' => 'max:1024',
             'content' => 'required',
-            'publish_at' => 'required',
+            'published_at' => 'required',
         ],$messages);
 
         $request->user()->articles()->create([
             'title' => $request->title,
-            'thumbnail' => $request->photo,
+            'thumbnail' => $request->thumbnail,
             'category' => $request->category,
             'content' => $request->content,
-            'published_at' => $request->publish_at,
+            'published_at' => $request->published_at,
         ]);
 
         Session()->flash('status', 'Article create was successful!');
 
         return redirect('/articles');
+    }
+
+
+    public function edit($id)
+    {
+        $article = Article::find($id);
+
+        return view('admin.articles.edit',['article'=>$article]);
     }
 
 
@@ -123,7 +125,6 @@ class ArticleController extends Controller
 
         $messages = [
             'title.required' => '标题不能为空',
-            'title.unique' => '标题不能重复',
             'title.max' => '标题不能小于:max位',
             'title.min' => '标题不能小于:min位',
             'content.required' => '内容不能为空',
@@ -135,12 +136,14 @@ class ArticleController extends Controller
 
         $article = Article::find($id);
         $article->title = $request->title;
+        $article->category = $request->category;
         $article->content = $request->content;
+        $article->published_at = $request->published_at;
         $article->save();
 
         Session()->flash('status', 'Article update was successful!');
 
-        return redirect('/articles');
+        return redirect('/admin/articles');
     }
 
 

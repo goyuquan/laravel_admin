@@ -107,7 +107,9 @@
                         <div class="widget-body no-padding">
                             <form id="create_form" class="smart-form" novalidate="novalidate" method="POST" action="/article/store" enctype="multipart/form-data" >
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <input type="hidden" name="photo">
+                                <input type="hidden" name="thumbnail">
+                                <input type="hidden" name="category">
+                                <textarea id="input_content" class="hidden" name="content"></textarea>
 
 
                                         <fieldset>
@@ -125,8 +127,19 @@
                                             <!-- 标题结束 -->
 
                                             <div class="row">
-                                                <section class="col col-2">
-                                                    <div id="type_select" class="dropdown pull-right">
+                                                <section class="col col-3">
+                                                    <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                                                        <input type="text" name="published_at" placeholder="选择发布时间" class="datepicker" value="{{ old('published_at') }}" data-dateformat="dd/mm/yy">
+                                                    </label>
+                                                    @if ($errors->has('published_at'))
+                                                    <em>{{ $errors->first('published_at') }}</em>
+                                                    @endif
+                                                </section>
+                                                <div class="col col-1">
+                                                    <a data-toggle="modal" href="#myModal" id="upload_bt0" class="btn btn-warning btn-sm"><i class="fa fa-upload"></i>     缩略图</a>
+                                                </div>
+                                                <section class="col col-3">
+                                                    <div id="type_select" class="dropdown">
                                                         <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary btn-sm" data-target="#" href="javascript:void(0);">
                                                             <i class="fa fa-gear"></i>      类别
                                                             <span class="caret"></span>
@@ -162,28 +175,12 @@
                                                                 <a href="javascript:void(0);">类别1</a>
                                                             </li>
                                                         </ul>
+                                                        @if ($errors->has('category'))
+                                                        <em for="category" class="invalid">{{ $errors->first('category') }}</em>
+                                                        @endif
                                                     </div>
 
                                                 </section>
-                                                <section class="col col-2">
-                                                    <label class="input input-sm">
-                                                        <input type="text" name="category" class="input-sm" placeholder="输入类别">
-                                                    </label>
-                                                    @if ($errors->has('category'))
-                                                    <em for="category" class="invalid">{{ $errors->first('category') }}</em>
-                                                    @endif
-                                                </section>
-                                                <section class="col col-3">
-                                                    <label class="input"> <i class="icon-append fa fa-calendar"></i>
-                                                        <input type="text" name="publish_at" placeholder="选择发布时间" class="datepicker" value="{{ old('publish_at') }}" data-dateformat="dd/mm/yy">
-                                                    </label>
-                                                    @if ($errors->has('publish_at'))
-                                                        <em>{{ $errors->first('publish_at') }}</em>
-                                                    @endif
-                                                </section>
-                                                <div class="col col-1">
-                                                    <a data-toggle="modal" href="#myModal" id="upload_bt0" class="btn btn-warning btn-sm"><i class="fa fa-upload"></i>     缩略图</a>
-                                                </div>
                                             </div>
 
 
@@ -354,6 +351,16 @@
     </section>
     <!-- end widget grid -->
 
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <input type="submit" id="submit" class="btn btn-primary btn-lg btn-block" value="提交     submit">
 
     </form>
@@ -390,6 +397,7 @@ $(function(){
 		tabsize : 2
 	});
 
+    $("#summernote textarea").attr("name","content");
     $('#summernote #summernote_save').addClass("disabled");
     $('#summernote #summernote_clear').addClass("disabled");
 
@@ -406,13 +414,13 @@ $(function(){
 
     $('#summernote #summernote_save').click(function(){
         $("#summernote").removeClass("jarviswidget-color-blue").addClass("jarviswidget-color-greenDark");
-        $("#summernote textarea").val($(".note-editable").html());
+        $("#input_content").val($(".note-editable").html());
         $('#summernote #summernote_save').addClass("disabled");
         $('#summernote #summernote_clear').addClass("disabled");
     });
 
     $('#summernote #summernote_clear').click(function(){
-        $("#summernote textarea").empty();
+        $("#input_content").empty();
         $(".note-editable").empty();
         $('#summernote #summernote_save').addClass("disabled");
         $(this).addClass("disabled");
@@ -458,7 +466,7 @@ $(function(){
 
     $("#create_form").submit(function(){
 
-        if ($("#summernote textarea").val() == "") {
+        if ($("#input_content").val() == "") {
             $("#summernote").removeClass("jarviswidget-color-blue").addClass("jarviswidget-color-redLight");
             $("#summernote h2").text("内容不能为空");
             return false;

@@ -95,7 +95,7 @@
                                     <th>类别</th>
                                     <th>用户</th>
                                     <th>缩略图</th>
-                                    <th style="width:10em;">发布时间</th>
+                                    <th style="width:8em;">发布时间</th>
                                     <th style="width:6em;">操作</th>
                                 </tr>
                             </thead>
@@ -114,7 +114,7 @@
                                             <a href="/uploads/{{ $article->thumbnail }}">图片</a>
                                         @endif
                                     </td>
-                                    <td>{{str_limit($article->published_at,10)}}</td>
+                                    <td>{{ substr($article->published_at,1,10) }}</td>
                                     <td class="text-center">
                                         <div class="btn-group">
                                             <a href="/admin/article/{{ $article->id }}/edit">
@@ -138,7 +138,7 @@
                     <div class="dt-row dt-bottom-row">
                         <div class="row text-center">
                             <div class="dataTables_paginate paging_bootstrap_full">
-                                {!! $articles->links() !!}
+                                {{ $articles->links() }}
                             </div>
                         </div>
                     </div>
@@ -165,6 +165,10 @@
 
 @section('script')
 
-
+<script type="text/javascript">
+    $("#article").addClass("open active");
+    $("#article_").show();
+    $("#article_list").addClass("active");
+</script>
 
 @endsection

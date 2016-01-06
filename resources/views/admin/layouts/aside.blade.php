@@ -31,32 +31,17 @@
 -->
 
 <ul>
-    <li class="active">
+    <li>
         <a href="/admin" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">控制台</span></a>
     </li>
-    <li>
+    <li id="article">
         <a href="#"><i class="fa fa-lg fa-fw fa-pencil-square-o"></i> <span class="menu-item-parent">内容管理</span></a>
-        <ul>
-            <li>
+        <ul id="article_">
+            <li id="article_list">
                 <a href="/admin/articles/">文章列表</a>
             </li>
             <li>
                 <a href="/admin/article/create">新建文章</a>
-            </li>
-            <li>
-                <a href="validation.html">Smart Form Validation</a>
-            </li>
-            <li>
-                <a href="bootstrap-forms.html">Bootstrap Form Elements</a>
-            </li>
-            <li>
-                <a href="plugins.html">Form Plugins</a>
-            </li>
-            <li>
-                <a href="wizard.html">Wizards</a>
-            </li>
-            <li>
-                <a href="other-editors.html">Bootstrap Editors</a>
             </li>
             <li>
                 <a href="dropzone.html">Dropzone <span class="badge pull-right inbox-badge bg-color-yellow">new</span></a>
@@ -64,7 +49,15 @@
         </ul>
     </li>
     <li>
-        <a href="#"><i class="fa fa-lg fa-fw fa-table"></i> <span class="menu-item-parent">Tables</span></a>
+        <a href="#"><i class="fa fa-lg fa-fw fa-table"></i> <span class="menu-item-parent">文章分类</span></a>
+        <ul>
+            <li>
+                <a href="/admin/category/"><i class="fa fa-plane"></i>分类列表</a>
+            </li>
+            <li>
+                <a href="/admin/category/create"><i class="glyphicon glyphicon-plane"></i> 创建分类 </a>
+            </li>
+        </ul>
         <ul>
             <li>
                 <a href="table.html">Normal Tables</a>

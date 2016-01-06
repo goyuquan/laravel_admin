@@ -10,7 +10,6 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/articles/{id?}', 'ArticleController@index');
     Route::post('/article/store', 'ArticleController@store');
-    Route::get('/article/{id}/edit', 'ArticleController@edit');
     Route::post('/article/{id}/update', 'ArticleController@update');
     Route::post('/article/fileupload','ArticleController@fileUpload');
 
@@ -24,6 +23,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/admin','AdminController@index');
         Route::get('/admin/articles/{id?}', 'ArticleController@article_list');
         Route::get('/admin/article/create', 'ArticleController@create');
+        Route::get('/admin/article/{id}/edit', 'ArticleController@edit');
         Route::get('/admin/article/{id}/destroy', 'ArticleController@destroy');
 
     });
