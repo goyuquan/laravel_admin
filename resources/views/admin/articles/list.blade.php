@@ -166,9 +166,9 @@
 @section('script')
 
 <script type="text/javascript">
-    $("#article").addClass("open active");
-    $("#article_").show();
-    $("#article_list").addClass("active");
+    $("#aside_article").addClass("open");
+    $("#aside_article_").show();
+    $("#aside_article_list").addClass("active");
 </script>
 
 @endsection

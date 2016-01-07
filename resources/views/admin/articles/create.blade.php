@@ -378,6 +378,11 @@
 
 <script>
 $(function(){
+    
+    $("#aside_article").addClass("open");
+    $("#aside_article_").show();
+    $("#aside_article_add").addClass("active");
+
     $("#text_area").markdown({
         autofocus:false,
         savable:false
