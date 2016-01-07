@@ -77,6 +77,7 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
+        // return $request->category;
         $messages = [
             'title.required' => '标题不能为空',
             'category.required' => '选择分类',
@@ -84,7 +85,7 @@ class ArticleController extends Controller
             'title.max' => '标题不能大于:max位',
             'title.min' => '标题不能小于:min位',
             'content.required' => '内容不能为空',
-            'publish_at.required' => '发布时间不能为空',
+            'published_at.required' => '发布时间不能为空',
         ];
         $this->validate($request, [
             'title' => 'required|min:5|max:255',

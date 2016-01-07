@@ -58,17 +58,9 @@
             <h1 class="page-title txt-color-blueDark">
 
                 <!-- PAGE HEADER -->
-                <i class="fa-fw fa fa-pencil-square-o"></i> 内容管理 <span>> 新建文章 </span>
+                <i class="fa-fw fa fa-pencil-square-o"></i> 内容管理 <span>> 编辑文章 </span>
             </h1>
         </div>
-    </div>
-
-    <div class="alert alert-block alert-success">
-        <a class="close" data-dismiss="alert" href="#">×</a>
-        <h4 class="alert-heading"><i class="fa fa-check-square-o"> </i> Check validation!</h4>
-        <p>
-            You may also check the form validation by clicking on the form action button. Please try and see the results below!
-        </p>
     </div>
 
     <!-- widget grid -->
@@ -81,7 +73,7 @@
             <article class="col-sm-12 col-md-12 col-lg-12">
 
                 <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget" id="wid-id-1" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="true">
+                <div class="jarviswidget" id="wid-id-2" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="true">
                 <!-- widget options:
                 usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
@@ -97,7 +89,7 @@
                 -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-                        <h2>新建内容 </h2>
+                        <h2>编辑内容 </h2>
                     </header>
 
                     <!-- widget div-->
@@ -105,11 +97,11 @@
 
                         <!-- widget content -->
                         <div class="widget-body no-padding">
-                            <form id="create_form" class="smart-form" novalidate="novalidate" method="POST" action="/article/{{$article->id}}/update" enctype="multipart/form-data" >
+                            <form id="edit_form" class="smart-form" novalidate="novalidate" method="POST" action="/admin/article/{{$article->id}}/update" enctype="multipart/form-data" >
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <input type="hidden" name="thumbnail">
-                                <input type="hidden" name="category">
-                                <textarea id="input_content" class="hidden" name="content"></textarea>
+                                <input type="hidden" name="thumbnail" value="{{ $article->thumbnail }}">
+                                <input type="hidden" name="category" value="{{ $article->category }}">
+                                <textarea id="input_content" class="hidden" name="content">{{ $article->content }}</textarea>
 
 
                                         <fieldset>
@@ -118,7 +110,7 @@
                                             <section>
                                                 <label class="input">
                                                     <i class="icon-prepend fa fa-user"></i>
-                                                    <input type="text" name="title" value="{{$article->title}}" placeholder="文章标题">
+                                                    <input type="text" name="title" value="{{ $article->title }}" placeholder="文章标题">
                                                 </label>
                                                 @if ($errors->has('title'))
                                                     <em for="title" class="invalid">{{ $errors->first('title') }}</em>
@@ -129,10 +121,10 @@
                                             <div class="row">
                                                 <section class="col col-3">
                                                     <label class="input"> <i class="icon-append fa fa-calendar"></i>
-                                                        <input type="text" name="published_at" placeholder="选择发布时间" class="datepicker" value="{{ $article->published_at }}" data-dateformat="dd/mm/yy">
+                                                        <input type="text" name="published_at" placeholder="选择发布时间" class="datepicker" value="{{ $article->published_at }}" data-dateformat="yy-mm-dd">
                                                     </label>
-                                                    @if ($errors->has('publish_at'))
-                                                    <em>{{ $errors->first('publish_at') }}</em>
+                                                    @if ($errors->has('published_at'))
+                                                    <em>{{ $errors->first('published_at') }}</em>
                                                     @endif
                                                 </section>
                                                 <div class="col col-1">
@@ -141,7 +133,7 @@
                                                 <section class="col col-3">
                                                     <div id="type_select" class="dropdown">
                                                         <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary btn-sm" data-target="#" href="javascript:void(0);">
-                                                            <i class="fa fa-gear"></i>      类别
+                                                            <i class="fa fa-gear"></i>      <span id="category_bt"></span>
                                                             <span class="caret"></span>
                                                         </a>
                                                         <ul class="dropdown-menu multi-level" role="menu">
@@ -297,7 +289,7 @@
             					<div class="widget-body no-padding">
 
             						<div class="web_area">
-                                        {{$article->content}}
+                                        {{ $article->content }}
             						</div>
 
             						<div class="widget-footer smart-form">
@@ -351,7 +343,17 @@
     </section>
     <!-- end widget grid -->
 
-    <input type="submit" id="submit" class="btn btn-primary btn-lg btn-block" value="提交     submit">
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <input type="submit" id="submit2" class="btn btn-primary btn-lg btn-block" value="提交     submit">
+
 
     </form>
 
@@ -387,10 +389,10 @@ $(function(){
 		tabsize : 2
 	});
 
+    $("#summernote textarea").attr("name","content");
     $('#summernote #summernote_save').addClass("disabled");
     $('#summernote #summernote_clear').addClass("disabled");
-
-    $("#summernote textarea").val($(".note-editable").html());
+    $("#category_bt").text($("input[name='category']").val());
 
     $(".note-editable").keyup(function(){
         if ($(this).html() != "") {
@@ -424,7 +426,7 @@ $(function(){
 
 
 
-    var $creat_form = $("#create_form").validate({
+    var $creat_form = $("#edit_form").validate({
 		// Rules for form validation
 		rules : {
 			title : {
@@ -455,8 +457,7 @@ $(function(){
 		}
 	});
 
-    $("#create_form").submit(function(){
-
+    $("#edit_form").submit(function(){
         if ($("#input_content").val() == "") {
             $("#summernote").removeClass("jarviswidget-color-blue").addClass("jarviswidget-color-redLight");
             $("#summernote h2").text("内容不能为空");

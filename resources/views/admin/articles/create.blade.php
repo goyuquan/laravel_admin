@@ -63,14 +63,6 @@
         </div>
     </div>
 
-    <div class="alert alert-block alert-success">
-        <a class="close" data-dismiss="alert" href="#">×</a>
-        <h4 class="alert-heading"><i class="fa fa-check-square-o"> </i> Check validation!</h4>
-        <p>
-            You may also check the form validation by clicking on the form action button. Please try and see the results below!
-        </p>
-    </div>
-
     <!-- widget grid -->
     <section id="widget-grid">
 
@@ -105,7 +97,7 @@
 
                         <!-- widget content -->
                         <div class="widget-body no-padding">
-                            <form id="create_form" class="smart-form" novalidate="novalidate" method="POST" action="/article/store" enctype="multipart/form-data" >
+                            <form id="create_form" class="smart-form" novalidate="novalidate" method="POST" action="/admin/article/store" enctype="multipart/form-data" >
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="thumbnail">
                                 <input type="hidden" name="category">
@@ -129,7 +121,7 @@
                                             <div class="row">
                                                 <section class="col col-3">
                                                     <label class="input"> <i class="icon-append fa fa-calendar"></i>
-                                                        <input type="text" name="published_at" placeholder="选择发布时间" class="datepicker" value="{{ old('published_at') }}" data-dateformat="dd/mm/yy">
+                                                        <input type="text" name="published_at" placeholder="选择发布时间" class="datepicker" value="{{ old('published_at') }}" data-dateformat="yy-mm-dd">
                                                     </label>
                                                     @if ($errors->has('published_at'))
                                                     <em>{{ $errors->first('published_at') }}</em>

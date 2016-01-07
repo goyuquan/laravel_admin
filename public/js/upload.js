@@ -30,7 +30,7 @@ $(function(){
                 contentType: false,
                 data: fd,
                 success: function(data) {
-                    $("input[name='photo']").val(data);
+                    $("input[name='thumbnail']").val(data);
                     $('#img_upload').addClass('disabled');
                     $('#file').closest('.input-file').addClass('state-disabled');
                     $('#progress').removeClass('bg-color-primary').addClass('progress-bar-success');
