@@ -2,7 +2,11 @@
 
 @section('style')
 
-
+<style>
+    #type_select a{
+        padding: 0.5em 1em;
+    }
+</style>
 
 @endsection
 
@@ -84,80 +88,86 @@
                     <!-- widget content -->
                     <div class="widget-body no-padding">
 
-                        <form id="category-form" class="smart-form" novalidate="novalidate">
+                        <form id="category-form" method="POST" action="/admin/category/store" class="smart-form" novalidate="novalidate">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="parent_id">
 
                             <fieldset>
-                                <section>
-                                    <label class="input"> <i class="icon-prepend fa fa-user"></i>
-                                        <input type="text" class="input-ms" name="fname" placeholder="First name">
-                                    </label>
+                            <div class="row">
+                                <section class="col col-3">
+                                    <div id="parent_select" class="dropdown">
+                                        <a id="dLabel" role="button" name="{{App\Category::find(1)->id}}" data-toggle="dropdown" class="btn btn-primary btn-sm" data-target="#" href="javascript:void(0);">
+                                            <i class="fa fa-code-fork"></i>      {{App\Category::find(1)->name}}
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu multi-level" role="menu">
+                                            @foreach ( $categorys as $category )
+                                                @if ( $category->parent_id === 1 )
+                                                    <li>
+                                                        <a href="javascript:void(0);" name="{{$category->id}}">{{ $category->name }}</a>
+                                                        {{$category->id}}<br>
+                                                        @foreach ( $categoryss as $category_ )
+                                                        <span>{{$category->id}}</span><span>{{$category_->id}}</span><hr>
+                                                            <!-- @if ($category->parent_id = $category->id)
+                                                                <ul class="dropdown-menu">
+                                                                    @foreach ($categorys as $category)
+                                                                    <li>
+                                                                        <a href="javascript:void(0);" name="{{$category->parent_id}}">{{$category->name}}</a>
+                                                                    </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            @endif -->
+                                                        @endforeach
+
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                            <!-- <li>
+                                                <a href="javascript:void(0);">类别2</a>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a tabindex="-1" href="javascript:void(0);" class="parent-item">有子类别</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a tabindex="-1" href="javascript:void(0);">Second level</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);">Second level</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);">Second level</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">类别1</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">类别1</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">类别1</a>
+                                            </li> -->
+                                        </ul>
+                                        @if ($errors->has('category'))
+                                        <em for="category" class="invalid">{{ $errors->first('category') }}</em>
+                                        @endif
+                                    </div>
+
                                 </section>
-                            </fieldset>
-
-
-
-                                <!-- widget div-->
-                                <div>
-
-                                    <!-- widget edit box -->
-                                    <div class="jarviswidget-editbox">
-                                        <!-- This area used as dropdown edit box -->
-
-                                    </div>
-                                    <!-- end widget edit box -->
-
-                                    <!-- widget content -->
-                                    <div class="widget-body">
-
-
-                                        <div class="tree">
-                                            <ul>
-                                                <li>
-                                                    <span><i class="fa fa-lg fa-calendar"></i> 分类根目录 </span>
-                                                    <ul>
-                                                        <li>
-                                                            <span class="label label-success"><i class="fa fa-lg fa-plus-circle"></i> 分类一 </span>
-                                                            <ul>
-                                                                <li>
-                                                                    <span><i class="fa fa-clock-o"></i> 子分类</span> &ndash; <a href="javascript:void(0);">子分类</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                        <li>
-                                                            <span class="label label-warning"><i class="fa fa-lg fa-minus-circle"></i> 分类三</span>
-                                                            <ul>
-                                                                <li>
-                                                                    <span><i class="fa fa-clock-o"></i> 子分类</span> &ndash; <a href="javascript:void(0);">子分类</a>
-                                                                </li>
-                                                                <li>
-                                                                    <span><i class="fa fa-clock-o"></i> 子分类</span> &ndash; <a href="javascript:void(0);">子分类</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                        <li>
-                                                            <span class="label label-info"><i class="fa fa-lg fa-minus-circle"></i> 分类四</span>
-                                                            <ul>
-                                                                <li>
-                                                                    <span><i class="fa fa-clock-o"></i> 子分类</span> &ndash; <a href="javascript:void(0);">子分类</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                    <!-- end widget content -->
-
-                                </div>
-                                <!-- end widget div -->
+                            </div>
+                            <section>
+                                <label class="input"> <i class="icon-prepend fa fa-font"></i>
+                                    <input type="text" class="input-md" name="name" placeholder="分类名称">
+                                </label>
+                            </section>
+                        </fieldset>
 
 
 
 
                             <footer>
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary btn-block">
                                     添加
                                 </button>
                             </footer>
@@ -284,6 +294,13 @@
 $(function(){
 
     $("#aside_category").addClass("active");
+
+
+    $("#parent_select ul a:not('.parent-item')").click(function(){
+        $("input[name='parent_id']").val($(this).attr("name"));
+        $("#dLabel").html("<i class='fa fa-gear'></i>   "+$(this).text()+"   <span class='caret'></span>");
+    });
+
 
     $('.tree > ul').attr('role', 'tree').find('ul').attr('role', 'group');
     $('.tree').find('li:has(ul)').addClass('parent_li').attr('role', 'treeitem').find(' > span').attr('title', 'Collapse this branch').on('click', function(e) {

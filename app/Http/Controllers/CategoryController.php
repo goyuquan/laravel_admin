@@ -16,44 +16,32 @@ class CategoryController extends Controller
     }
 
 
-    public function index($id = 1)
+    public function index()
     {
-        $categorys = Category::all();
-        return view('admin.categorys.index', ["Category" => $categorys]);
+        $categorys = $categoryss = Category::all();
+        return view('admin.categorys.index', ["categorys" => $categorys,"categoryss" => $categoryss]);
     }
 
 
     public function store(Request $request)
     {
-        // return $request->category;
+        $request->parent_id = empty($request->parent_id)?1:$request->parent_id;
+
         $messages = [
-            'title.required' => '标题不能为空',
-            'category.required' => '选择分类',
-            'title.unique' => '标题不能重复',
-            'title.max' => '标题不能大于:max位',
-            'title.min' => '标题不能小于:min位',
-            'content.required' => '内容不能为空',
-            'published_at.required' => '发布时间不能为空',
+            'name.required' => '分类名不能为空',
         ];
         $this->validate($request, [
-            'title' => 'required|min:5|max:255',
-            'category' => 'required',
-            'photo' => 'max:1024',
-            'content' => 'required',
-            'published_at' => 'required',
+            'name' => 'required',
         ],$messages);
 
-        $request->user()->articles()->create([
-            'title' => $request->title,
-            'thumbnail' => $request->thumbnail,
-            'category' => $request->category,
-            'content' => $request->content,
-            'published_at' => $request->published_at,
+        Category::create([
+            'name' => $request->name,
+            'parent_id' => $request->parent_id,
         ]);
 
-        Session()->flash('status', 'Article create was successful!');
+        Session()->flash('status', 'category create was successful!');
 
-        return redirect('/articles');
+        return redirect('/admin/categorys/');
     }
-    
+
 }

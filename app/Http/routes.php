@@ -27,6 +27,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/admin/article/{id}/destroy', 'ArticleController@destroy');
 
         Route::get('/admin/categorys/', 'CategoryController@index');
+        Route::post('/admin/category/store', 'CategoryController@store');
 
     });
 
