@@ -18,8 +18,8 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categorys = $categoryss = Category::all();
-        return view('admin.categorys.index', ["categorys" => $categorys,"categoryss" => $categoryss]);
+        $categorys = $categorys_wrap = $categoryss = Category::all();
+        return view('admin.categorys.index', ["categorys" => $categorys,"categoryss" => $categoryss,"categorys_wrap" => $categorys_wrap]);
     }
 
 

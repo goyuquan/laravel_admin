@@ -87,9 +87,15 @@
 					</div>
                     @if (count($articles) > 0)
                     <div class="dt_wrapper">
-                        <table id="dt_basic" class="table table-striped table-bordered table-hover">
+                        <table id="dt_basic" class="table table-bordered table-striped table-condensed table-hover smart-form has-tickbox">
                             <thead>
                                 <tr>
+                                    <th>
+                                        <label class="checkbox">
+											<input type="checkbox" name="checkbox-inline">
+											<i></i>
+                                        </label>
+                                    </th>
                                     <th style="width:1em;">ID</th>
                                     <th>标题</th>
                                     <th>类别</th>
@@ -102,6 +108,12 @@
                             <tbody>
                                 @foreach ($articles as $article)
                                 <tr>
+                                    <td>
+                                        <label class="checkbox">
+											<input type="checkbox" name="checkbox-inline">
+											<i></i>
+                                        </label>
+                                    </td>
                                     <td>{{ $article->id }}</td>
                                     <td><a href="/article/{{ $article->id }}">
                                         {{str_limit($article->title,50)}}

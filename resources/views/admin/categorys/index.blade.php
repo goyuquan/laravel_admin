@@ -86,6 +86,7 @@
                     <!-- end widget edit box -->
 
                     <!-- widget content -->
+
                     <div class="widget-body no-padding">
 
                         <form id="category-form" method="POST" action="/admin/category/store" class="smart-form" novalidate="novalidate">
@@ -105,53 +106,22 @@
                                                 @if ( $category->parent_id === 1 )
                                                     <li>
                                                         <a href="javascript:void(0);" name="{{$category->id}}">{{ $category->name }}</a>
-                                                        {{$category->id}}<br>
+
                                                         @foreach ( $categoryss as $category_ )
-                                                        <span>{{$category->id}}</span><span>{{$category_->id}}</span><hr>
-                                                            <!-- @if ($category->parent_id = $category->id)
+                                                            @if ($category_->parent_id === $category->id)
                                                                 <ul class="dropdown-menu">
-                                                                    @foreach ($categorys as $category)
                                                                     <li>
-                                                                        <a href="javascript:void(0);" name="{{$category->parent_id}}">{{$category->name}}</a>
+                                                                        <a href="javascript:void(0);" name="{{$category_->id}}">{{$category_->name}}</a>
                                                                     </li>
-                                                                    @endforeach
                                                                 </ul>
-                                                            @endif -->
+                                                            @endif
                                                         @endforeach
 
                                                     </li>
                                                 @endif
                                             @endforeach
-                                            <!-- <li>
-                                                <a href="javascript:void(0);">类别2</a>
-                                            </li>
-                                            <li class="dropdown-submenu">
-                                                <a tabindex="-1" href="javascript:void(0);" class="parent-item">有子类别</a>
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a tabindex="-1" href="javascript:void(0);">Second level</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0);">Second level</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0);">Second level</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0);">类别1</a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0);">类别1</a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0);">类别1</a>
-                                            </li> -->
+
                                         </ul>
-                                        @if ($errors->has('category'))
-                                        <em for="category" class="invalid">{{ $errors->first('category') }}</em>
-                                        @endif
                                     </div>
 
                                 </section>
@@ -160,7 +130,15 @@
                                 <label class="input"> <i class="icon-prepend fa fa-font"></i>
                                     <input type="text" class="input-md" name="name" placeholder="分类名称">
                                 </label>
+                                @if ($errors->has('name'))
+                                <em for="category" class="invalid">{{ $errors->first('name') }}</em>
+                                @endif
                             </section>
+
+                            <?php
+                            $abc = collect($categorys[0]->toArray());
+                            echo ($abc);
+                            ?>
                         </fieldset>
 
 
@@ -314,6 +292,9 @@ $(function(){
         }
         e.stopPropagation();
     });
+
+
+    $(".dropdown-menu").parent("li").addClass("dropdown-submenu");//给分类列表父元素加dropdown-submenu类
 
 })
 
