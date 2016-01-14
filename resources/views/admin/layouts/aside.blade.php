@@ -52,7 +52,7 @@
         <a href="javascript:void(0);"><i class="fa fa-lg fa-fw fa-desktop"></i> <span class="menu-item-parent">用户管理</span></a>
         <ul id="aside_user_">
             <li id="aside_user_list">
-                <a href="/admin/articles/">用户列表</a>
+                <a href="/admin/users/">用户列表</a>
             </li>
             <li id="aside_user_add">
                 <a href="/admin/article/create">添加用户</a>
