@@ -8,7 +8,7 @@
     {{$article->title}}
 </h1>
 <p>
-    {{$article->content}}
+    <?php echo(html_entity_decode($article->content, ENT_QUOTES, 'UTF-8')); ?>
 </p>
 
 @endsection

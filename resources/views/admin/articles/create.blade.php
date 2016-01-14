@@ -73,7 +73,7 @@
             <article class="col-sm-12 col-md-12 col-lg-12">
 
                 <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget" id="wid-id-1" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="true">
+                <div class="jarviswidget" id="wid-id-1g" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="true">
                 <!-- widget options:
                 usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
@@ -132,44 +132,31 @@
                                                 </div>
                                                 <section class="col col-3">
                                                     <div id="type_select" class="dropdown">
-                                                        <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary btn-sm" data-target="#" href="javascript:void(0);">
-                                                            <i class="fa fa-gear"></i>      类别
+                                                        <a id="dLabel" role="button" name="{{App\Category::find(1)->id}}" data-toggle="dropdown" class="btn btn-primary btn-sm" data-target="#" href="javascript:void(0);">
+                                                            <i class="fa fa-code-fork"></i>      {{App\Category::find(1)->name}}
                                                             <span class="caret"></span>
                                                         </a>
                                                         <ul class="dropdown-menu multi-level" role="menu">
-                                                            <li>
-                                                                <a href="javascript:void(0);">类别1</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">类别2</a>
-                                                            </li>
-                                                            <li class="dropdown-submenu">
-                                                                <a tabindex="-1" href="javascript:void(0);" class="parent-item">有子类别</a>
-                                                                <ul class="dropdown-menu">
+                                                            @foreach ( $categorys as $category )
+                                                                @if ( $category->parent_id === 1 )
                                                                     <li>
-                                                                        <a tabindex="-1" href="javascript:void(0);">Second level</a>
+                                                                        <a href="javascript:void(0);" name="{{$category->id}}"><i class="fa fa-circle-o">   </i>{{ $category->name }}</a>
+
+                                                                        @foreach ( $categoryss as $category_ )
+                                                                            @if ($category_->parent_id === $category->id)
+                                                                                <li>
+                                                                                    <a href="javascript:void(0);" name="{{$category_->id}}">
+                                                                                        <i class="fa fa-circle-o">  </i>{{ $category->name }} <i class="fa fa-chevron-circle-right"></i> {{$category_->name}}
+                                                                                    </a>
+                                                                                </li>
+                                                                            @endif
+                                                                        @endforeach
+
                                                                     </li>
-                                                                    <li>
-                                                                        <a href="javascript:void(0);">Second level</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="javascript:void(0);">Second level</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">类别1</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">类别1</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">类别1</a>
-                                                            </li>
+                                                                @endif
+                                                            @endforeach
+
                                                         </ul>
-                                                        @if ($errors->has('category'))
-                                                        <em for="category" class="invalid">{{ $errors->first('category') }}</em>
-                                                        @endif
                                                     </div>
 
                                                 </section>
@@ -378,7 +365,7 @@
 
 <script>
 $(function(){
-    
+
     $("#aside_article").addClass("open");
     $("#aside_article_").show();
     $("#aside_article_add").addClass("active");
@@ -430,7 +417,7 @@ $(function(){
 
 
 
-    var $creat_form = $("#create_form").validate({
+    var $creat_form = $("#create_form").validate({//表单验证
 		// Rules for form validation
 		rules : {
 			title : {
@@ -461,7 +448,7 @@ $(function(){
 		}
 	});
 
-    $("#create_form").submit(function(){
+    $("#create_form").submit(function(){//文本域验证
 
         if ($("#input_content").val() == "") {
             $("#summernote").removeClass("jarviswidget-color-blue").addClass("jarviswidget-color-redLight");

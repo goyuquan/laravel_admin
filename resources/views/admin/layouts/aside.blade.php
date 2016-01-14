@@ -48,37 +48,14 @@
     <li id="aside_category">
         <a href="/admin/categorys/"><i class="fa fa-lg fa-fw fa-table"></i> <span class="menu-item-parent">文章分类</span></a>
     </li>
-    <li>
-        <a href="#"><i class="fa fa-lg fa-fw fa-desktop"></i> <span class="menu-item-parent">UI Elements</span></a>
-        <ul>
-            <li>
-                <a href="general-elements.html">General Elements</a>
+    <li id="aside_user">
+        <a href="javascript:void(0);"><i class="fa fa-lg fa-fw fa-desktop"></i> <span class="menu-item-parent">用户管理</span></a>
+        <ul id="aside_user_">
+            <li id="aside_user_list">
+                <a href="/admin/articles/">用户列表</a>
             </li>
-            <li>
-                <a href="buttons.html">Buttons</a>
-            </li>
-            <li>
-                <a href="#">Icons</a>
-                <ul>
-                    <li>
-                        <a href="fa.html"><i class="fa fa-plane"></i> Font Awesome</a>
-                    </li>
-                    <li>
-                        <a href="glyph.html"><i class="glyphicon glyphicon-plane"></i> Glyph Icons </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="grid.html">Grid</a>
-            </li>
-            <li>
-                <a href="treeview.html">Tree View</a>
-            </li>
-            <li>
-                <a href="nestable-list.html">Nestable Lists</a>
-            </li>
-            <li>
-                <a href="jqui.html">JQuery UI</a>
+            <li id="aside_user_add">
+                <a href="/admin/article/create">添加用户</a>
             </li>
         </ul>
     </li>

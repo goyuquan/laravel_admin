@@ -6,6 +6,9 @@
     #type_select a{
         padding: 0.5em 1em;
     }
+     .dropdown-menu i{
+        margin: 0.2em 0.6em 0.2em 0.6em;
+    }
 </style>
 
 @endsection
@@ -105,15 +108,15 @@
                                             @foreach ( $categorys as $category )
                                                 @if ( $category->parent_id === 1 )
                                                     <li>
-                                                        <a href="javascript:void(0);" name="{{$category->id}}">{{ $category->name }}</a>
+                                                        <a href="javascript:void(0);" name="{{$category->id}}"><i class="fa fa-circle-o">   </i>{{ $category->name }}</a>
 
                                                         @foreach ( $categoryss as $category_ )
                                                             @if ($category_->parent_id === $category->id)
-                                                                <ul class="dropdown-menu">
-                                                                    <li>
-                                                                        <a href="javascript:void(0);" name="{{$category_->id}}">{{$category_->name}}</a>
-                                                                    </li>
-                                                                </ul>
+                                                                <li>
+                                                                    <a href="javascript:void(0);" name="{{$category_->id}}">
+                                                                        <i class="fa fa-circle-o">  </i>{{ $category->name }} <i class="fa fa-chevron-circle-right"></i> {{$category_->name}}
+                                                                    </a>
+                                                                </li>
                                                             @endif
                                                         @endforeach
 
@@ -135,10 +138,6 @@
                                 @endif
                             </section>
 
-                            <?php
-                            $abc = collect($categorys[0]->toArray());
-                            echo ($abc);
-                            ?>
                         </fieldset>
 
 
@@ -159,6 +158,12 @@
 
             </div>
             <!-- end widget -->
+
+
+
+
+
+
 
         </article>
 
@@ -249,10 +254,7 @@
 
         </article>
 
-
-
         </div>
-
 
     </div>
     <!-- END MAIN CONTENT -->
@@ -271,7 +273,7 @@
 <script type="text/javascript">
 $(function(){
 
-    $("#aside_category").addClass("active");
+    $("#aside_category").addClass("active");//导航菜单样式
 
 
     $("#parent_select ul a:not('.parent-item')").click(function(){
@@ -295,6 +297,29 @@ $(function(){
 
 
     $(".dropdown-menu").parent("li").addClass("dropdown-submenu");//给分类列表父元素加dropdown-submenu类
+
+    var $creat_form = $("#category-form").validate({//表单验证
+		// Rules for form validation
+		rules : {
+			name : {
+				required : true,
+				maxlength : 10
+			}
+		},
+
+		// Messages for form validation
+		messages : {
+			name : {
+				required : '请输入名称',
+                maxlength : '不能大于10位',
+			}
+		},
+
+		// Do not change code below
+		errorPlacement : function(error, element) {
+			error.insertAfter(element.parent());
+		}
+	});
 
 })
 

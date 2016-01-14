@@ -73,7 +73,7 @@
             <article class="col-sm-12 col-md-12 col-lg-12">
 
                 <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget" id="wid-id-2" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="true">
+                <div class="jarviswidget" id="wid-id-786" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="true">
                 <!-- widget options:
                 usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
@@ -289,7 +289,7 @@
             					<div class="widget-body no-padding">
 
             						<div class="web_area">
-                                        {{ $article->content }}
+                                        <?php echo(html_entity_decode($article->content, ENT_QUOTES, 'UTF-8')); ?>
             						</div>
 
             						<div class="widget-footer smart-form">
@@ -399,7 +399,19 @@ $(function(){
     $('#summernote #summernote_clear').addClass("disabled");
     $("#category_bt").text($("input[name='category']").val());
 
+
     $(".note-editable").keyup(function(){
+        if ($(this).html() != "") {
+            $("#summernote").removeClass("jarviswidget-color-greenDark jarviswidget-color-redLight").addClass("jarviswidget-color-blue");
+            $('#summernote #summernote_save').removeClass("disabled");
+            $('#summernote #summernote_clear').removeClass("disabled");
+        } else {
+            $('#summernote #summernote_save').addClass("disabled");
+            $('#summernote #summernote_clear').addClass("disabled");
+        }
+    });
+
+    $(".note-editable").bind('DOMNodeInserted', function () {
         if ($(this).html() != "") {
             $("#summernote").removeClass("jarviswidget-color-greenDark jarviswidget-color-redLight").addClass("jarviswidget-color-blue");
             $('#summernote #summernote_save').removeClass("disabled");

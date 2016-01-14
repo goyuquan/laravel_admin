@@ -17,6 +17,7 @@ class ArticleRepository
     {
         return Article::where('published_at','<',date("Y-m-d h:i:s"))
         ->orderBy('published_at', 'desc')
+        ->orderBy('id', 'desc')
         ->paginate($perPage = 10, $columns = ['*'], $pageName = 'page', $page = $id);
     }
 

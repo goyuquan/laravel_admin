@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Gate;
 use App\Article;
+use App\Category;
 use App\Img;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -71,13 +72,13 @@ class ArticleController extends Controller
 
     public function create(Request $request)
     {
-        return view('admin.articles.create');
+        $categorys = $categoryss = Category::all();
+        return view('admin.articles.create',["categorys" => $categorys,"categoryss" => $categoryss]);
     }
 
 
     public function store(Request $request)
     {
-        // return $request->category;
         $messages = [
             'title.required' => '标题不能为空',
             'category.required' => '选择分类',
