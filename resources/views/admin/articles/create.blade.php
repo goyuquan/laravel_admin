@@ -1,11 +1,7 @@
 @extends('admin.layouts.admin')
 
 @section('style')
-<style>
-    #type_select a{
-        padding: 0.5em 1em;
-    }
-</style>
+
 @endsection
 
 @section('content')
